@@ -119,6 +119,9 @@ a {
   text-decoration: none;
 }
 .home {
+  padding: 0 10px;
+  box-sizing: border-box;
+  margin-bottom: 70px;
   .home-list {
     h3 {
       font-size: 18px;

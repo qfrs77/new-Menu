@@ -2,6 +2,8 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import VueAxiosPlugin from 'vue-axios-plugin'
+
+
 Vue.config.productionTip = false
 Vue.use(VueAxiosPlugin, {
   // 请求拦截处理
