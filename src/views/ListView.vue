@@ -6,7 +6,7 @@
     </div>
     <div class="list-detail">
       <ul>
-        <li v-for="item in listMenu" :key="item.id">
+        <li v-for="item in listMenu" :key="item.id"  @click="addhistory(item.id,item.titlepic,item.title,item.ftitle,item.onclick)">
           <router-link :to="{path:'/detail',query:{id:item.id}}">
             <div class="list-detail-left">
               <img :src="[item.titlepic]" alt />
@@ -38,7 +38,8 @@ export default {
       meals:"",
       listMenu: "",
       isLoad: true,
-      isSource: false
+      isSource: false,
+      history:[]
     };
   },
   created() {
@@ -46,6 +47,7 @@ export default {
     this.className = this.$route.query.classname;
     this.classC = this.$route.query.c;
     this.meals = this.$route.query.meals;
+    this.history = JSON.parse(localStorage.getItem("history")) || [];
     // console.log(this.classID, this.className);
   },
   computed: {
@@ -56,6 +58,18 @@ export default {
   methods: {
     back() {
       router.go(-1);
+    },
+    addhistory(id,img,title,ftitle,onclick) {
+    this.history = JSON.parse(localStorage.getItem("history")) || [];
+      this.history.push({
+        id:id,
+        img:img,
+        title:title,
+        ftitle:ftitle,
+        onclick:onclick,
+      })
+      localStorage.setItem("history", JSON.stringify(this.history));
+      console.log("aaa");
     }
   },
   watch: {
