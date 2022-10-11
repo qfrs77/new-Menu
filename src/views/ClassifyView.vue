@@ -166,6 +166,8 @@ export default {
 
 <style lang="scss">
 .classify {
+  padding: 0 10px;
+  box-sizing: border-box;
   .classify-list {
     width: 100%;
     margin-bottom: 60px;

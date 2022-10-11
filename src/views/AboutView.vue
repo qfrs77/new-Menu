@@ -2,7 +2,10 @@
   <div class="about">
     <div class="about-my">
       <h1>我的</h1>
-      <img src="../assets/setUp.svg" alt="">
+      <router-link to="/login">
+        <img src="../assets/setUp.svg" alt="">
+      </router-link>
+      
     </div>
     <div class="about-nav">
       <router-link to="/browHistory">浏览历史</router-link>
