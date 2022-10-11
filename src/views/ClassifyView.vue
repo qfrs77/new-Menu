@@ -1,6 +1,5 @@
 <template>
   <div class="classify">
-    <h1>classify</h1>
     <div class="searchbox"  @click="turnToSearch"><input type="text" placeholder="搜索菜名或食材"/></div>
     <div class="classify-list">
       <div>

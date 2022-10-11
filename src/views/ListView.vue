@@ -61,8 +61,8 @@ export default {
   watch: {
     listUrl() {
       this.$axios.get(this.listUrl).then(({ data }) => {
-        // console.log(data);
-        if (data.msg == "success") {
+        console.log(data);
+        if (data.msg == "success" && data.data.length != 0) {
           this.listMenu = data.data;
           this.isLoad = false;
         } else {
@@ -121,6 +121,9 @@ export default {
               font-weight: bold;
               text-align: left;
               margin-bottom: 15px;
+              overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
             }
             p {
               overflow: hidden;
@@ -142,6 +145,7 @@ export default {
   height: 10vh;
   font-size: 20px;
   align-items: center;
+  margin-top: 30px;
 }
 .load {
   width: 100%;

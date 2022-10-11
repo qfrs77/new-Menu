@@ -5,6 +5,7 @@
     </div>
     <div class="detail-content">
       <img :src="[detailImg]" alt />
+      <button v-if="isButton" @click="collection">{{isCollection == false ? '收藏' : '已收藏'}}</button>
       <div v-html="step"></div>
     </div>
     <div v-if="isSource" class="source">未找到资源</div>
@@ -24,11 +25,16 @@ export default {
       step: "",
       detailImg: "",
       isLoad: true,
-      isSource: false
+      isSource: false,
+      isButton: false,
+      isCollection: false,
+      isSwitch: false,
+      favorites: []
     };
   },
   created() {
     this.detailID = this.$route.query.id;
+    // this.favorites = JSON.parse(localStorage.getItem("favorites")) || []
   },
   computed: {
     detailUrl() {
@@ -38,24 +44,41 @@ export default {
   watch: {
     detailUrl() {
       this.$axios.get(this.detailUrl).then(({ data }) => {
-        // console.log(data);
+        console.log(data);
         if (data.msg == "success" && data.data != false) {
           this.detailMenu = data.data;
           this.step = this.detailMenu.newstext;
           this.detailImg = this.detailMenu.titlepic;
           this.isLoad = false;
-        } else  {
+          this.isButton = true;
+        } else {
           this.isLoad = false;
           this.isSource = true;
         }
-
-        // console.log(this.foodMaterial);
       });
     }
   },
   methods: {
     back() {
       router.go(-1);
+    },
+    collection() {
+      if (this.isSwitch == false) {
+        this.isCollection = true;
+        this.isSwitch = true;
+        this.favorites.push({
+        id: this.detailMenu.id,
+        img: this.detailMenu.titlepic,
+        title: this.detailMenu.title,
+        ftitle: this.detailMenu.ftitle,
+        onclick: this.detailMenu.onclick
+      });
+      localStorage.setItem("favorites", JSON.stringify(this.favorites))
+      } else {
+        this.isCollection = false;
+        this.isSwitch = false;
+      }
+      
     }
   }
 };
@@ -78,6 +101,18 @@ export default {
     img {
       width: 100%;
       display: block;
+    }
+    button {
+      font-size: 18px;
+      color: #fff;
+      padding: 2px 20px;
+      border-radius: 20px;
+      border: 0;
+      background: #ed912e;
+      display: block;
+      float: right;
+      margin-top: 10px;
+      margin-right: 10px;
     }
     div {
       width: 95%;
