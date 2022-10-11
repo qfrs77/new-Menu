@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-    <h1>home</h1>
     <div class="searchbox"  @click="turnToSearch"><input type="text" placeholder="搜索菜名或食材"/></div>
     <router-link :to="{path:'/list',query:{classname:'早餐',c:'meals',meals:'1'}}">
     早餐
@@ -96,7 +95,7 @@ export default {
         .then(({ data }) => {
           // console.log(data);
           // console.log(data.data);
-          if (data.msg == "success") {
+          if (data.msg == "success" && data.data.length != 0) {
             this.carefullyMenu = data.data.cookbookList;
             this.newMenu = data.data.newZt;
             this.hotMenu = data.data.hotZt;
