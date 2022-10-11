@@ -1,6 +1,7 @@
 <template>
   <div class="classify">
     <h1>classify</h1>
+    <div class="searchbox"  @click="turnToSearch"><input type="text" placeholder="搜索菜名或食材"/></div>
     <div class="classify-list">
       <div>
         <h3>中国菜系</h3>
@@ -159,6 +160,11 @@ export default {
       });
       this.dishes = newObj;
       // console.log(this.dishes);
+    },
+    turnToSearch() {
+      this.$router.push({
+        path:'/search'
+      })
     }
   }
 };
@@ -168,6 +174,20 @@ export default {
 .classify {
   padding: 0 10px;
   box-sizing: border-box;
+  .searchbox {
+    width: 100%;
+    height: 46px;
+    input {
+      width: 100%;
+      height: 34px;
+        margin-top: 6px;
+        padding: 0 7px;
+        box-sizing: border-box;
+        outline: none;
+        border: 1px solid #fc6976;
+        border-radius: 8px;
+    }
+  }
   .classify-list {
     width: 100%;
     margin-bottom: 60px;
