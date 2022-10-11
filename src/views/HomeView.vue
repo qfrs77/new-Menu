@@ -1,6 +1,7 @@
 <template>
   <div class="home">
     <h1>home</h1>
+    <div class="searchbox"  @click="turnToSearch"><input type="text" placeholder="搜索菜名或食材"/></div>
     <router-link :to="{path:'/list',query:{classname:'早餐',c:'meals',meals:'1'}}">
     早餐
     </router-link>
@@ -83,9 +84,6 @@ export default {
       isSource: false
     };
   },
-  components: {
-    // HelloWorld
-  },
   computed: {},
   watch: {},
   created() {
@@ -108,6 +106,11 @@ export default {
             this.isSource = true;
           }
         });
+    },
+    turnToSearch() {
+      this.$router.push({
+        path:'/search'
+      })
     }
   }
 };
@@ -122,6 +125,20 @@ a {
   padding: 0 10px;
   box-sizing: border-box;
   margin-bottom: 70px;
+  .searchbox {
+    width: 100%;
+    height: 46px;
+    input {
+      width: 100%;
+      height: 34px;
+        margin-top: 6px;
+        padding: 0 7px;
+        box-sizing: border-box;
+        outline: none;
+        border: 1px solid #fc6976;
+        border-radius: 8px;
+    }
+  }
   .home-list {
     h3 {
       font-size: 18px;

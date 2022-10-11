@@ -17,7 +17,7 @@
     justify-content: space-between;
     position: fixed;
     bottom: 0;
-    z-index: 99999;
+    z-index: 99;
     padding: 20px;
     background: #ccc;
     box-sizing: border-box;
