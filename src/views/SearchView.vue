@@ -1,17 +1,28 @@
 <template>
     <div class="searchbox">
         <SearchCommponents />
-        <div>
-            <div>热门搜索</div>
-            <div></div>
+        <div class="searchhistory">
+            <div>历史搜索</div>
+            <div class="searchbox">
+                <div v-for="item in searchhistory" :key="item">{{item.keyword}}</div>
+            </div>
         </div>
     </div>
 </template>
 <script>
 import SearchCommponents from "@/components/SearchComponents.vue";
 export default {
-    setup() {
-        
+    data() {
+        return {
+            searchhistory:[]
+        }
+    },
+    created() {
+        this.searchhistory = JSON.parse(localStorage.getItem("searchhistory")) || [];
+        console.log(this.searchhistory);
+    },
+    methods: {
+
     },
     components: {
     SearchCommponents,
