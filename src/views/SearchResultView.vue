@@ -7,8 +7,7 @@
         </div>
         <div class="resultList">
             <ul>
-                <li v-for="item in resultList" :key="item.id">
-                    <router-link :to="{path:'/detail',query:{id:item.id}}">
+                <li v-for="item in resultList" :key="item.id" @click.stop="addhistory(item.id,item.titlepic,item.title,item.ftitle,item.onclick)">
                         <div class="list-detail-left">
                         <img :src="[item.titlepic]" alt />
                         </div>
@@ -17,7 +16,6 @@
                             <p>{{item.ftitle}}</p>
                             <span>{{item.onclick}}收藏</span>
                         </div>
-                    </router-link>
                 </li>
             </ul>
         </div>
@@ -29,11 +27,14 @@ export default {
         return {
             keyword:'',
             newkeyword:'',
-            resultList:[]
+            resultList:[],
+            history:[]
         }
     },
     created() {
-        this.keyword = this.$route.query.keyword
+        this.keyword = this.$route.query.keyword;
+    this.history = JSON.parse(localStorage.getItem("history")) || [];
+
     },
     computed: {
         resulturl() {
@@ -58,6 +59,26 @@ export default {
                 this.resultList=data.data
             });
             console.log(this.keyword);
+        },
+        addhistory(id,img,title,ftitle,onclick) {
+            this.history = this.history.filter((e) => {
+                return e.id != id;
+            });
+            this.history.unshift({
+                id:id,
+                img:img,
+                title:title,
+                ftitle:ftitle,
+                onclick:onclick,
+            })
+            localStorage.setItem("history", JSON.stringify(this.history));
+            console.log("aaa");
+            this.$router.push({
+                path:'/detail',
+                query:{
+                id:id
+                }
+            })
         }
     },
 }
@@ -101,8 +122,7 @@ export default {
     ul {
       width: 100%;
       li {
-        width: 100%;
-        a {
+
           width: 100%;
           display: flex;
           justify-content: space-around;
@@ -138,7 +158,7 @@ export default {
               bottom: 0;
               left: 0;
             }
-          }
+          
         }
       }
     }
