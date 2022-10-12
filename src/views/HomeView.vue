@@ -74,13 +74,15 @@ export default {
       newMenu: "",
       hotMenu: "",
       isLoad: true,
-      isSource: false
+      isSource: false,
+      history:[]
     };
   },
   computed: {},
   watch: {},
   created() {
     this.getHomeData();
+    this.history = JSON.parse(localStorage.getItem("history")) || [];
   },
   methods: {
     getHomeData() {
