@@ -11,7 +11,11 @@ export default {
     data() {
         return {
             keyword:'',
+            searchhistory:[]
         };
+    },
+    created() {
+        this.searchhistory = JSON.parse(localStorage.getItem("searchhistory")) || [];
     },
     computed: {
 
@@ -24,6 +28,13 @@ export default {
             this.$router.go(-1);
         },
         turnToSearchResult() {
+            this.searchhistory = this.searchhistory.filter((e) => {
+                return e.keyword != this.keyword;
+            });
+            this.searchhistory.unshift({
+                keyword:this.keyword
+            })
+            localStorage.setItem("searchhistory", JSON.stringify(this.searchhistory));
             this.$router.push({
                 path:"/searchResult",
                 query:{
