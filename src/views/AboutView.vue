@@ -24,6 +24,8 @@
     line-height: 35px;
     font-size: 18px;
     position: fixed;
+    background: #fff;
+    z-index: 99;
   }
   .about-my{
     top: 0;

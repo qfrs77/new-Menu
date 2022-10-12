@@ -89,7 +89,7 @@ export default {
       this.$axios
         .get(`/e/extend/api/index.php?m=home&c=data&appid=com.jingrui.cookbook`)
         .then(({ data }) => {
-          // console.log(data);
+          console.log(data);
           // console.log(data.data);
           if (data.msg == "success" && data.data.length != 0) {
             this.carefullyMenu = data.data.cookbookList;
