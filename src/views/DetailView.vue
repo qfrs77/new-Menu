@@ -77,8 +77,7 @@ export default {
       } else {
         this.isCollection = false;
         this.isSwitch = false;
-      }
-      
+      }   
     }
   }
 };
