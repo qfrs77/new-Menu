@@ -6,6 +6,7 @@
       </router-link>
     </div>
     <div class="login-form">
+      <h3>Menu</h3>
       <wd-input v-model="phone" label="手机号" label-width="100px" placeholder="请输入手机号" clearable />
       <wd-input
         v-model="passWord"
@@ -97,6 +98,11 @@ export default {
   }
   .login-form {
     padding: 100px 0;
+    h3{
+      font-size: 60px;
+      font-weight: bold;
+      padding-bottom: 50px;
+    }
     p {
       margin-top: 20px;
       .plase-register {
