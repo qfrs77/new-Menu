@@ -6,8 +6,7 @@
     </div>
     <div class="list-detail">
       <ul>
-        <li v-for="item in listMenu" :key="item.id"  @click="addhistory(item.id,item.titlepic,item.title,item.ftitle,item.onclick)">
-          <router-link :to="{path:'/detail',query:{id:item.id}}">
+        <li v-for="item in listMenu" :key="item.id"  @click.stop="addhistory(item.id,item.titlepic,item.title,item.ftitle,item.onclick)">
             <div class="list-detail-left">
               <img :src="[item.titlepic]" alt />
             </div>
@@ -16,7 +15,6 @@
               <p>{{item.ftitle}}</p>
               <span>{{item.onclick}}收藏</span>
             </div>
-          </router-link>
         </li>
       </ul>
     </div>
@@ -60,8 +58,10 @@ export default {
       router.go(-1);
     },
     addhistory(id,img,title,ftitle,onclick) {
-    this.history = JSON.parse(localStorage.getItem("history")) || [];
-      this.history.push({
+      this.history = this.history.filter((e) => {
+        return e.id != id;
+      });
+      this.history.unshift({
         id:id,
         img:img,
         title:title,
@@ -70,6 +70,12 @@ export default {
       })
       localStorage.setItem("history", JSON.stringify(this.history));
       console.log("aaa");
+      this.$router.push({
+        path:'/detail',
+        query:{
+          id:id
+        }
+      })
     }
   },
   watch: {
@@ -109,8 +115,6 @@ export default {
     ul {
       width: 100%;
       li {
-        width: 100%;
-        a {
           width: 100%;
           display: flex;
           justify-content: space-around;
@@ -149,7 +153,7 @@ export default {
               bottom: 0;
               left: 0;
             }
-          }
+          
         }
       }
     }

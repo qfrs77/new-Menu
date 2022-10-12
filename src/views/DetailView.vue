@@ -77,7 +77,7 @@ export default {
       router.go(-1);
     },
     addcollection() {
-      this.favorites.push({
+      this.favorites.unshift({
         id: this.detailMenu.id,
         img: this.detailMenu.titlepic,
         title: this.detailMenu.title,
