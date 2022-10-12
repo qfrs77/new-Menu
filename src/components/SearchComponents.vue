@@ -28,6 +28,9 @@ export default {
             this.$router.go(-1);
         },
         turnToSearchResult() {
+            if(this.keyword.length == 0){
+                return
+            }
             this.searchhistory = this.searchhistory.filter((e) => {
                 return e.keyword != this.keyword;
             });

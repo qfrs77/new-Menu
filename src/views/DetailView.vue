@@ -5,8 +5,10 @@
     </div>
     <div class="detail-content">
       <img :src="[detailImg]" alt />
-      <button v-if="!tfhas" @click="addcollection">收藏</button>
-      <button v-else @click="delcollection">已收藏</button>
+      <div v-if="isSwitch">
+        <button v-if="!tfhas" @click="addcollection">收藏</button>
+        <button v-else @click="delcollection">已收藏</button>
+      </div>
       <div v-html="step"></div>
     </div>
     <div v-if="isSource" class="source">未找到资源</div>
@@ -27,7 +29,6 @@ export default {
       detailImg: "",
       isLoad: true,
       isSource: false,
-      isCollection: false,
       isSwitch: false,
       favorites: []
     };
@@ -35,25 +36,19 @@ export default {
   created() {
     this.detailID = this.$route.query.id;
     this.favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-    // this.favorites = JSON.parse(localStorage.getItem("favorites")) || []
   },
   computed: {
     detailUrl() {
       return `/e/extend/api/index.php?m=cookbook&c=detail&appid=com.jingrui.cookbook&id=${this.detailID}`;
     },
     tfhas() {
-      let flag = false
-      this.favorites.forEach(e=>{
-        if(e.id==this.detailID){
-          flag = true
+      let flag = false;
+      this.favorites.forEach(e => {
+        if (e.id == this.detailID) {
+          flag = true;
         }
-      })
-      /* for(let i = 0;i<this.favorites.length;i++) {
-        if(this.favorites[i].id == this.detailID) {
-          flag = true
-        }
-      } */
-      return flag
+      });
+      return flag;
     }
   },
   watch: {
@@ -65,8 +60,10 @@ export default {
           this.step = this.detailMenu.newstext;
           this.detailImg = this.detailMenu.titlepic;
           this.isLoad = false;
+          this.isSwitch = true;
         } else {
           this.isLoad = false;
+          this.isSwitch = false;
           this.isSource = true;
         }
       });
@@ -82,17 +79,16 @@ export default {
         img: this.detailMenu.titlepic,
         title: this.detailMenu.title,
         ftitle: this.detailMenu.ftitle,
-        onclick: this.detailMenu.onclick,
+        onclick: this.detailMenu.onclick
       });
 
-      localStorage.setItem("favorites", JSON.stringify(this.favorites))     
+      localStorage.setItem("favorites", JSON.stringify(this.favorites));
     },
     delcollection() {
-      this.favorites = this.favorites.filter((e) => {
+      this.favorites = this.favorites.filter(e => {
         return e.id != this.detailID;
       });
       localStorage.setItem("favorites", JSON.stringify(this.favorites));
-
     }
   }
 };
@@ -129,16 +125,17 @@ export default {
       margin-right: 10px;
     }
     div {
-      width: 95%;
-      margin: 0 auto;
+      width: 100%;
+      padding: 0 10px;
+      box-sizing: border-box;
       div {
         display: inline-block;
         text-align: left;
+        margin: 5px 0;
         strong {
           display: block;
           font-size: 18px;
           font-weight: bold;
-          padding: 10px 0;
         }
         img {
           width: 100%;

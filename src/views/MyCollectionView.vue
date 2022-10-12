@@ -54,8 +54,11 @@ export default {
 .collection {
   margin-top: 70px;
   width: 100%;
+  margin-bottom: 60px;
   ul {
     width: 100%;
+    padding: 0 10px;
+    box-sizing: border-box;
     li {
       width: 100%;
       a {

@@ -1,32 +1,56 @@
 <template>
   <div class="home">
-    <div class="searchbox"  @click="turnToSearch"><input type="text" placeholder="搜索菜名或食材"/></div>
-    <router-link :to="{path:'/list',query:{classname:'早餐',c:'meals',meals:'1'}}">
-    早餐
-    </router-link>
-    <router-link :to="{path:'/list',query:{classname:'午餐',c:'meals',meals:'2'}}">
-    午餐
-    </router-link>
-    <router-link :to="{path:'/list',query:{classname:'晚餐',c:'meals',meals:'3'}}">
-    晚餐
-    </router-link>
-    <router-link :to="{path:'/list',query:{classname:'热门菜谱',c:'meals',meals:'hot'}}">
-    热门菜谱
-    </router-link>
-    <router-link :to="{path:'/list',query:{classname:'最新菜谱',c:'meals',meals:'new'}}">
-    最新菜谱
-    </router-link>
+    <div class="searchbox" @click="turnToSearch">
+      <input type="text" placeholder="搜索菜名或食材" />
+    </div>
+    <div class="home-nav">
+      <div>
+        <router-link :to="{path:'/list',query:{classname:'早餐',c:'meals',meals:'1'}}">
+          <img src="../assets/breakfast.png" alt />
+          <p>早餐</p>
+        </router-link>
+      </div>
+      <div>
+        <router-link :to="{path:'/list',query:{classname:'午餐',c:'meals',meals:'2'}}">
+          <img src="../assets/lunch.png" alt />
+          <p>午餐</p>
+        </router-link>
+      </div>
+      <div>
+        <router-link :to="{path:'/list',query:{classname:'晚餐',c:'meals',meals:'3'}}">
+          <img src="../assets/dinner.png" alt />
+          <p>晚餐</p>
+        </router-link>
+      </div>
+      <div>
+        <div>
+          <router-link :to="{path:'/list',query:{classname:'热门菜谱',c:'meals',meals:'hot'}}">
+            <img src="../assets/hot.png" alt />
+            <p>热门菜谱</p>
+          </router-link>
+          <router-link :to="{path:'/list',query:{classname:'最新菜谱',c:'meals',meals:'new'}}">
+            <img src="../assets/new.png" alt />
+            <p>最新菜谱</p>
+          </router-link>
+        </div>
+      </div>
+    </div>
+
     <div class="home-list">
       <h3>精选菜谱</h3>
       <ul>
-        <li v-for="item in carefullyMenu" :key="item.id" @click.stop="addhistory(item.id,item.titlepic,item.title,item.ftitle,item.onclick)">
-            <div>
-              <img :src="[item.titlepic]" alt />
-              <p>
-                <span class="title">{{item.title}}</span>
-                <span>{{item.onclick}}</span>
-              </p>
-            </div>
+        <li
+          v-for="item in carefullyMenu"
+          :key="item.id"
+          @click.stop="addhistory(item.id,item.titlepic,item.title,item.ftitle,item.onclick)"
+        >
+          <div>
+            <img :src="[item.titlepic]" alt />
+            <p>
+              <span class="title">{{item.title}}</span>
+              <span>{{item.onclick}}</span>
+            </p>
+          </div>
         </li>
       </ul>
       <div v-if="isSource" class="source">未找到资源</div>
@@ -35,11 +59,15 @@
       </div>
       <h3>最新专题</h3>
       <ol>
-        <li v-for="item in newMenu" :key="item.ztid" @click.stop="addhistory(item.id,item.titlepic,item.title,item.ftitle,item.onclick)">
-            <div>
-              <img :src="[item.ztimg]" alt />
-              <p>{{item.ztname}}</p>
-            </div>
+        <li
+          v-for="item in newMenu"
+          :key="item.ztid"
+          @click.stop="addhistory(item.id,item.titlepic,item.title,item.ftitle,item.onclick)"
+        >
+          <div>
+            <img :src="[item.ztimg]" alt />
+            <p>{{item.ztname}}</p>
+          </div>
         </li>
       </ol>
       <div v-if="isSource" class="source">未找到资源</div>
@@ -48,11 +76,15 @@
       </div>
       <h3>热门专题</h3>
       <ol>
-        <li v-for="item in hotMenu" :key="item.ztid" @click.stop="addhistory(item.id,item.titlepic,item.title,item.ftitle,item.onclick)">
-            <div>
-              <img :src="[item.ztimg]" alt />
-              <p>{{item.ztname}}</p>
-            </div>
+        <li
+          v-for="item in hotMenu"
+          :key="item.ztid"
+          @click.stop="addhistory(item.id,item.titlepic,item.title,item.ftitle,item.onclick)"
+        >
+          <div>
+            <img :src="[item.ztimg]" alt />
+            <p>{{item.ztname}}</p>
+          </div>
         </li>
       </ol>
       <div v-if="isSource" class="source">未找到资源</div>
@@ -75,7 +107,7 @@ export default {
       hotMenu: "",
       isLoad: true,
       isSource: false,
-      history:[]
+      history: []
     };
   },
   computed: {},
@@ -89,8 +121,8 @@ export default {
       this.$axios
         .get(`/e/extend/api/index.php?m=home&c=data&appid=com.jingrui.cookbook`)
         .then(({ data }) => {
-          console.log(data);
-          // console.log(data.data);
+          // console.log(data);
+          console.log(data.data);
           if (data.msg == "success" && data.data.length != 0) {
             this.carefullyMenu = data.data.cookbookList;
             this.newMenu = data.data.newZt;
@@ -102,30 +134,30 @@ export default {
           }
         });
     },
-    addhistory(id,img,title,ftitle,onclick) {
-      this.history = this.history.filter((e) => {
+    addhistory(id, img, title, ftitle, onclick) {
+      this.history = this.history.filter(e => {
         return e.id != id;
       });
       this.history.unshift({
-        id:id,
-        img:img,
-        title:title,
-        ftitle:ftitle,
-        onclick:onclick,
-      })
+        id: id,
+        img: img,
+        title: title,
+        ftitle: ftitle,
+        onclick: onclick
+      });
       localStorage.setItem("history", JSON.stringify(this.history));
       console.log("aaa");
       this.$router.push({
-        path:'/detail',
-        query:{
-          id:id
+        path: "/detail",
+        query: {
+          id: id
         }
-      })
+      });
     },
     turnToSearch() {
       this.$router.push({
-        path:'/search'
-      })
+        path: "/search"
+      });
     }
   }
 };
@@ -139,19 +171,60 @@ a {
 .home {
   padding: 0 10px;
   box-sizing: border-box;
-  margin-bottom: 70px;
+  margin-bottom: 60px;
   .searchbox {
     width: 100%;
     height: 46px;
     input {
       width: 100%;
       height: 34px;
-        margin-top: 6px;
-        padding: 0 7px;
-        box-sizing: border-box;
-        outline: none;
-        border: 1px solid #fc6976;
-        border-radius: 8px;
+      margin-top: 6px;
+      padding: 0 7px;
+      box-sizing: border-box;
+      outline: none;
+      border: 1px solid #fc6976;
+      border-radius: 8px;
+    }
+  }
+  .home-nav {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    div {
+      width: 48%;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      position: relative;
+      a {
+        width: 100%;
+        img {
+          width: 100%;
+          height: 130px;
+          border-radius: 5px;
+        }
+      }
+      div {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        a {
+          width: 48%;
+          img {
+            width: 100%;
+            height: 130px;
+            border-radius: 5px;
+          }
+        }
+      }
+      p {
+        display: block;
+        font-size: 18px;
+        position: absolute;
+        top: 2px;
+      }
     }
   }
   .home-list {
@@ -208,6 +281,7 @@ a {
           font-size: 18px;
           color: #fff;
           text-align: left;
+          padding: 3px 0;
           position: absolute;
           bottom: 5px;
           background-color: rgba(0, 0, 0, 0.3);
