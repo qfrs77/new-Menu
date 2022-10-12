@@ -66,7 +66,6 @@ export default{
     ul {
       width: 100%;
       li {
-
           width: 100%;
           display: flex;
           justify-content: space-around;
@@ -103,7 +102,6 @@ export default{
               left: 0;
             }
           }
-        
       }
     }
 }
