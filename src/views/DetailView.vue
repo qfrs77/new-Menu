@@ -84,6 +84,7 @@ export default {
         ftitle: this.detailMenu.ftitle,
         onclick: this.detailMenu.onclick,
       });
+
       localStorage.setItem("favorites", JSON.stringify(this.favorites))     
     },
     delcollection() {
@@ -91,6 +92,7 @@ export default {
         return e.id != this.detailID;
       });
       localStorage.setItem("favorites", JSON.stringify(this.favorites));
+
     }
   }
 };
