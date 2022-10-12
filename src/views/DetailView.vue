@@ -5,7 +5,8 @@
     </div>
     <div class="detail-content">
       <img :src="[detailImg]" alt />
-      <button v-if="isButton" @click="collection">{{isCollection == false ? '收藏' : '已收藏'}}</button>
+      <button v-if="!tfhas" @click="addcollection">收藏</button>
+      <button v-else @click="delcollection">已收藏</button>
       <div v-html="step"></div>
     </div>
     <div v-if="isSource" class="source">未找到资源</div>
@@ -26,7 +27,6 @@ export default {
       detailImg: "",
       isLoad: true,
       isSource: false,
-      isButton: false,
       isCollection: false,
       isSwitch: false,
       favorites: []
@@ -34,11 +34,26 @@ export default {
   },
   created() {
     this.detailID = this.$route.query.id;
+    this.favorites = JSON.parse(localStorage.getItem("favorites")) || [];
     // this.favorites = JSON.parse(localStorage.getItem("favorites")) || []
   },
   computed: {
     detailUrl() {
       return `/e/extend/api/index.php?m=cookbook&c=detail&appid=com.jingrui.cookbook&id=${this.detailID}`;
+    },
+    tfhas() {
+      let flag = false
+      this.favorites.forEach(e=>{
+        if(e.id==this.detailID){
+          flag = true
+        }
+      })
+      /* for(let i = 0;i<this.favorites.length;i++) {
+        if(this.favorites[i].id == this.detailID) {
+          flag = true
+        }
+      } */
+      return flag
     }
   },
   watch: {
@@ -50,7 +65,6 @@ export default {
           this.step = this.detailMenu.newstext;
           this.detailImg = this.detailMenu.titlepic;
           this.isLoad = false;
-          this.isButton = true;
         } else {
           this.isLoad = false;
           this.isSource = true;
@@ -62,23 +76,21 @@ export default {
     back() {
       router.go(-1);
     },
-    collection() {
-      if (this.isSwitch == false) {
-        this.isCollection = true;
-        this.isSwitch = true;
-        this.favorites.push({
+    addcollection() {
+      this.favorites.push({
         id: this.detailMenu.id,
         img: this.detailMenu.titlepic,
         title: this.detailMenu.title,
         ftitle: this.detailMenu.ftitle,
-        onclick: this.detailMenu.onclick
+        onclick: this.detailMenu.onclick,
       });
-      localStorage.setItem("favorites", JSON.stringify(this.favorites))
-      } else {
-        this.isCollection = false;
-        this.isSwitch = false;
-      }
-      
+      localStorage.setItem("favorites", JSON.stringify(this.favorites))     
+    },
+    delcollection() {
+      this.favorites = this.favorites.filter((e) => {
+        return e.id != this.detailID;
+      });
+      localStorage.setItem("favorites", JSON.stringify(this.favorites));
     }
   }
 };
