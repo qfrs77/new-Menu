@@ -19,8 +19,7 @@
     <div class="home-list">
       <h3>精选菜谱</h3>
       <ul>
-        <li v-for="item in carefullyMenu" :key="item.id">
-          <router-link :to="{path:'/detail',query:{id:item.id}}">
+        <li v-for="item in carefullyMenu" :key="item.id" @click.stop="addhistory(item.id,item.titlepic,item.title,item.ftitle,item.onclick)">
             <div>
               <img :src="[item.titlepic]" alt />
               <p>
@@ -28,7 +27,6 @@
                 <span>{{item.onclick}}</span>
               </p>
             </div>
-          </router-link>
         </li>
       </ul>
       <div v-if="isSource" class="source">未找到资源</div>
@@ -37,13 +35,11 @@
       </div>
       <h3>最新专题</h3>
       <ol>
-        <li v-for="item in newMenu" :key="item.ztid">
-          <router-link :to="{path:'/detail',query:{id:item.id}}">
+        <li v-for="item in newMenu" :key="item.ztid" @click.stop="addhistory(item.id,item.titlepic,item.title,item.ftitle,item.onclick)">
             <div>
               <img :src="[item.ztimg]" alt />
               <p>{{item.ztname}}</p>
             </div>
-          </router-link>
         </li>
       </ol>
       <div v-if="isSource" class="source">未找到资源</div>
@@ -52,13 +48,11 @@
       </div>
       <h3>热门专题</h3>
       <ol>
-        <li v-for="item in hotMenu" :key="item.ztid">
-          <router-link :to="{path:'/detail',query:{id:item.id}}">
+        <li v-for="item in hotMenu" :key="item.ztid" @click.stop="addhistory(item.id,item.titlepic,item.title,item.ftitle,item.onclick)">
             <div>
               <img :src="[item.ztimg]" alt />
               <p>{{item.ztname}}</p>
             </div>
-          </router-link>
         </li>
       </ol>
       <div v-if="isSource" class="source">未找到资源</div>
@@ -105,6 +99,26 @@ export default {
             this.isSource = true;
           }
         });
+    },
+    addhistory(id,img,title,ftitle,onclick) {
+      this.history = this.history.filter((e) => {
+        return e.id != id;
+      });
+      this.history.unshift({
+        id:id,
+        img:img,
+        title:title,
+        ftitle:ftitle,
+        onclick:onclick,
+      })
+      localStorage.setItem("history", JSON.stringify(this.history));
+      console.log("aaa");
+      this.$router.push({
+        path:'/detail',
+        query:{
+          id:id
+        }
+      })
     },
     turnToSearch() {
       this.$router.push({
