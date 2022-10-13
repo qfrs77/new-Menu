@@ -7,14 +7,8 @@
         @click="addfavorites(item.id,item.img,item.title,item.ftitle,item.onclick)"
       >
         <router-link :to="{path:'/detail',query:{id:item.id}}">
-          <div class="list-detail-left">
-            <img :src="[item.img]" alt />
-          </div>
-          <div class="list-detail-right">
-            <h4>{{item.title}}</h4>
-            <p>{{item.ftitle}}</p>
-            <span>{{item.onclick}}收藏</span>
-          </div>
+          <img :src="[item.img]" alt />
+          <h4>{{item.title}}</h4>
         </router-link>
       </li>
     </ul>
@@ -54,47 +48,30 @@ export default {
 .collection {
   margin-top: 70px;
   width: 100%;
+  margin-bottom: 60px;
+
+  padding: 0 10px;
+  box-sizing: border-box;
   ul {
     width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
     li {
-      width: 100%;
-      a {
+      width: 48%;
+      margin-bottom: 10px;
+      color: #000;
+      text-decoration: none;
+      img {
         width: 100%;
-        display: flex;
-        justify-content: space-around;
-        margin-bottom: 10px;
-        color: #000;
-        text-decoration: none;
-        text-align: left;
-        .list-detail-left {
-          width: 40%;
-          img {
-            width: 100%;
-            height: 100px;
-            display: block;
-            border-radius: 5px;
-          }
-        }
-        .list-detail-right {
-          width: 60%;
-          position: relative;
-          margin-left: 10px;
-          h4 {
-            font-weight: bold;
-            text-align: left;
-            margin-bottom: 15px;
-          }
-          p {
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-          }
-          span {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-          }
-        }
+        height: 100px;
+        border-radius: 5px;
+      }
+      h4 {
+        font-weight: bold;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
       }
     }
   }

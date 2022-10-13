@@ -14,7 +14,17 @@
     <router-view />
   </div>
 </template>
-
+<script>
+export default{
+  created(){
+    if(window.location.pathname=='/about'){
+      this.$router.push({
+        path:'browHistory'
+      })
+    }
+  }
+}
+</script>
 <style lang="scss">
 .about{
   width: 100%;
