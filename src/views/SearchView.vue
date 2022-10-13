@@ -5,7 +5,7 @@
       <h4>历史搜索</h4>
       <div class="searchbox">
         <ul>
-          <li v-for="item in searchhistory" :key="item+item.keyword">
+          <li v-for="item in searchhistory" :key="item+item.keyword" @click="turnToSearchResult(item.keyword)">
             <span>{{item.keyword}}</span>
           </li>
         </ul>
@@ -18,15 +18,32 @@ import SearchCommponents from "@/components/SearchComponents.vue";
 export default {
   data() {
     return {
+      keyword:'',
       searchhistory: []
     };
   },
   created() {
     this.searchhistory =
       JSON.parse(localStorage.getItem("searchhistory")) || [];
-    console.log(this.searchhistory);
   },
-  methods: {},
+  methods: {
+    turnToSearchResult(keyword) {
+      this.keyword = keyword
+      this.searchhistory = this.searchhistory.filter(e => {
+        return e.keyword != this.keyword;
+      });
+      this.searchhistory.unshift({
+        keyword: this.keyword
+      });
+      localStorage.setItem("searchhistory", JSON.stringify(this.searchhistory));
+      this.$router.push({
+        path: "/searchResult",
+        query: {
+          keyword: this.keyword
+        }
+      });
+    }
+  },
   components: {
     SearchCommponents
   }

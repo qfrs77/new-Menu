@@ -38,6 +38,8 @@ export default {
   created() {
     this.keyword = this.$route.query.keyword;
     this.history = JSON.parse(localStorage.getItem("history")) || [];
+    this.searchhistory =
+      JSON.parse(localStorage.getItem("searchhistory")) || [];
   },
   computed: {
     resulturl() {
@@ -54,12 +56,20 @@ export default {
       this.$router.go(-1);
     },
     changekeyword() {
-      
+      if (this.newkeyword.length == 0) {
+        return;
+      }
+      this.searchhistory = this.searchhistory.filter(e => {
+        return e.keyword != this.newkeyword;
+      });
+      this.searchhistory.unshift({
+        keyword: this.newkeyword
+      });
+      localStorage.setItem("searchhistory", JSON.stringify(this.searchhistory));
       this.keyword = this.newkeyword;
     },
     getResultList() {
       this.$axios.get(this.resulturl).then(({ data }) => {
-        console.log(data);
         this.resultList = data.data;
       });
       console.log(this.keyword);
