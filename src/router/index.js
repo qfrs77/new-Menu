@@ -50,11 +50,15 @@ const routes = [
       }
     ]
   },
-
   {
     path: '/list',
     name: 'list',
     component: () => import('../views/ListView.vue')
+  },
+  {
+    path: '/ztList',
+    name: 'ztList',
+    component: () => import('../views/ZtListView.vue')
   },
   {
     path: '/detail',

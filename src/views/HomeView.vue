@@ -62,12 +62,13 @@
         <li
           v-for="item in newMenu"
           :key="item.ztid"
-          @click.stop="addhistory(item.id,item.titlepic,item.title,item.ftitle,item.onclick)"
         >
+        <router-link :to="{path:'/ztList',query:{classname:item.ztname,ztid:item.ztid}}">
           <div>
             <img :src="[item.ztimg]" alt />
             <p>{{item.ztname}}</p>
           </div>
+          </router-link>
         </li>
       </ol>
       <div v-if="isSource" class="source">未找到资源</div>
@@ -79,12 +80,13 @@
         <li
           v-for="item in hotMenu"
           :key="item.ztid"
-          @click.stop="addhistory(item.id,item.titlepic,item.title,item.ftitle,item.onclick)"
         >
+        <router-link :to="{path:'/ztList',query:{classname:item.ztname,ztid:item.ztid}}">
           <div>
             <img :src="[item.ztimg]" alt />
             <p>{{item.ztname}}</p>
           </div>
+          </router-link>
         </li>
       </ol>
       <div v-if="isSource" class="source">未找到资源</div>
@@ -158,7 +160,12 @@ export default {
       this.$router.push({
         path: "/search"
       });
-    }
+    },
+    // turnToList(){
+    //   this.$router.push({
+    //     path: "/list"
+    //   });
+    // }
   }
 };
 </script>
