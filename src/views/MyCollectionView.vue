@@ -46,7 +46,7 @@ export default {
     
     <style lang="scss">
 .collection {
-  margin-top: 70px;
+  margin-top: 80px;
   width: 100%;
   margin-bottom: 60px;
 

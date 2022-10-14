@@ -48,7 +48,7 @@
             <img :src="[item.titlepic]" alt />
             <p>
               <span class="title">{{item.title}}</span>
-              <span>{{item.onclick}}</span>
+              <span>{{Math.trunc(item.onclick/1000) + "k"}}</span>
             </p>
           </div>
         </li>
@@ -182,6 +182,13 @@ a {
   .searchbox {
     width: 100%;
     height: 46px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #fff;
+    z-index: 99;
+    padding: 0 10px;
+    box-sizing: border-box;
     input {
       width: 100%;
       height: 34px;
@@ -198,12 +205,14 @@ a {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+    padding-top: 50px;
     div {
       width: 48%;
       display: flex;
       justify-content: space-between;
       flex-wrap: wrap;
       position: relative;
+      margin-bottom: 8px;
       a {
         width: 100%;
         img {
@@ -231,6 +240,7 @@ a {
         font-size: 18px;
         position: absolute;
         top: 2px;
+        color: #fff;
       }
     }
   }
@@ -238,7 +248,7 @@ a {
     h3 {
       font-size: 18px;
       font-weight: bold;
-      margin: 10px 0;
+      margin-bottom: 10px;
       text-align: left;
     }
     ul {

@@ -40,7 +40,6 @@ export default {
         onclick: onclick
       });
       localStorage.setItem("history", JSON.stringify(this.history));
-      console.log("aaa");
       this.$router.push({
         path: "/detail",
         query: {
@@ -55,7 +54,7 @@ export default {
 <style lang="scss">
 .history {
   width: 100%;
-  margin-top: 70px;
+  margin-top: 80px;
   margin-bottom: 60px;
   padding: 0 10px;
   box-sizing: border-box;

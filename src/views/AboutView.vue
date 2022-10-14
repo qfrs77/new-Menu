@@ -55,6 +55,7 @@ export default{
     top:35px;
     display: flex;
     justify-content: space-between;
+    border-bottom: 1px solid rgba(0,0,0,.2);
     a{
       width: 50%;
       color: #000;
