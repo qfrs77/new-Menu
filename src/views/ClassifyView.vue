@@ -176,6 +176,13 @@ export default {
   .searchbox {
     width: 100%;
     height: 46px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #fff;
+    z-index: 99;
+    padding: 0 10px;
+    box-sizing: border-box;
     input {
       width: 100%;
       height: 34px;
@@ -190,6 +197,7 @@ export default {
   .classify-list {
     width: 100%;
     margin-bottom: 60px;
+    padding-top: 50px;
     div {
       width: 100%;
       h3 {

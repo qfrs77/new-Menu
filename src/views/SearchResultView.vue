@@ -110,6 +110,11 @@ export default {
     height: 46px;
     text-align: center;
     display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #fff;
+    z-index: 99;
     .back {
       width: 46px;
       height: 46px;
@@ -133,6 +138,9 @@ export default {
   }
   .resultList {
     width: 100%;
+    padding: 0 10px;
+    box-sizing: border-box;
+    padding-top: 50px;
     ul {
       width: 100%;
       li {
@@ -160,6 +168,9 @@ export default {
             font-weight: bold;
             text-align: left;
             margin-bottom: 15px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
           }
           p {
             overflow: hidden;
